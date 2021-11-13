@@ -3,7 +3,7 @@ variable "users" {
 }
 
 resource "aws_iam_user" "user" {
-  for_each = local.users
+  for_each = var.users
   name     = each.key
 
   tags = {

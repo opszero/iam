@@ -70,19 +70,3 @@ resource "aws_iam_policy" "developer" {
 
 
 
-resource "aws_iam_group" "monitoring" {
-  name = "Monitoring"
-}
-
-
-
-
-
-
-
-resource "aws_iam_group_policy_attachment" "monitoring" {
-  group      = aws_iam_group.monitoring.name
-  policy_arn = aws_iam_policy.monitoring.arn
-}
-
-

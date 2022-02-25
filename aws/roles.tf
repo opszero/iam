@@ -1,5 +1,5 @@
 resource "aws_iam_role" "administrator" {
-  name = "opsZeroIAM-Administrator"
+  name = "${var.prefix}-Administrator"
 
   # TODO Define what can assume this role
   assume_role_policy = jsonencode({
@@ -22,7 +22,7 @@ resource "aws_iam_role" "administrator" {
 }
 
 resource "aws_iam_role" "developer" {
-  name = "opsZeroIAM-Developer"
+  name = "${var.prefix}-Developer"
 
   # TODO Define what can assume this role
   assume_role_policy = jsonencode({
@@ -45,7 +45,7 @@ resource "aws_iam_role" "developer" {
 }
 
 resource "aws_iam_role" "readonly" {
-  name = "opsZeroIAM-ReadOnly"
+  name = "${var.prefix}-ReadOnly"
 
   # TODO Define what can assume this role
   assume_role_policy = jsonencode({
@@ -68,7 +68,7 @@ resource "aws_iam_role" "readonly" {
 }
 
 resource "aws_iam_role" "monitoring" {
-  name = "opsZeroIAM-Monitoring"
+  name = "${var.prefix}-Monitoring"
 
   # TODO Define what can assume this role
   assume_role_policy = jsonencode({

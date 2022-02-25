@@ -1,5 +1,5 @@
-resource "aws_iam_policy" "opszero_admin" {
-  name        = "opsZeroIAM-Admin"
+resource "aws_iam_policy" "admin" {
+  name        = "${var.prefix}-Admin"
   path        = "/"
   description = "opsZero IAM Administrator Policy"
 
@@ -15,8 +15,8 @@ resource "aws_iam_policy" "opszero_admin" {
   })
 }
 
-resource "aws_iam_policy" "opszero_developer" {
-  name        = "opsZeroIAM-Developer"
+resource "aws_iam_policy" "developer" {
+  name        = "${var.prefix}-Developer"
   path        = "/"
   description = "opsZero IAM Developer Policy"
 
@@ -52,8 +52,8 @@ resource "aws_iam_policy" "opszero_developer" {
 
 # TODO I need to rethink the policy because it's too long
 # LimitExceeded: Cannot exceed quota for PolicySize: 6144
-resource "aws_iam_policy" "opszero_readonly" {
-  name        = "opsZeroIAM-ReadOnly"
+resource "aws_iam_policy" "readonly" {
+  name        = "${var.prefix}-ReadOnly"
   path        = "/"
   description = "opsZero IAM Read Only Policy"
 
@@ -74,8 +74,8 @@ resource "aws_iam_policy" "opszero_readonly" {
 
 # TODO I need to rethink the policy because it's too long
 # LimitExceeded: Cannot exceed quota for PolicySize: 6144
-resource "aws_iam_policy" "opszero_monitoring" {
-  name        = "opsZeroIAM-Monitoring"
+resource "aws_iam_policy" "monitoring" {
+  name        = "${var.prefix}-Monitoring"
   path        = "/"
   description = "opsZero IAM monitoring Policy"
 
@@ -94,8 +94,8 @@ resource "aws_iam_policy" "opszero_monitoring" {
   })
 }
 
-resource "aws_iam_policy" "opszero-2fa-policy" {
-  name        = "opsZeroIAM-2FAPolicy"
+resource "aws_iam_policy" "2fa-policy" {
+  name        = "${var.prefix}-2FAPolicy"
   path        = "/"
   description = "Policy ensures users are utilizing 2fa"
 

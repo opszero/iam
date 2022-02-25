@@ -1,3 +1,12 @@
+resource "aws_iam_group" "monitoring" {
+  name = "Monitoring"
+}
+
+resource "aws_iam_group_policy_attachment" "monitoring" {
+  group      = aws_iam_group.monitoring.name
+  policy_arn = aws_iam_policy.monitoring.arn
+}
+
 # TODO Remove if not required for monitoring role/user
 resource "aws_iam_role_policy_attachment" "monitoring" {
   role       = aws_iam_role.monitoring.name

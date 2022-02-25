@@ -1,10 +1,6 @@
 resource "aws_iam_user" "user" {
   for_each = var.users
   name     = each.key
-
-  tags = {
-    terraform = "true"
-  }
 }
 
 resource "aws_iam_group_membership" "iam-user-groups" {

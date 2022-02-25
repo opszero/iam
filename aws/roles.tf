@@ -15,10 +15,6 @@ resource "aws_iam_role" "administrator" {
       },
     ]
   })
-
-  tags = {
-    terraform = "true"
-  }
 }
 
 resource "aws_iam_role" "developer" {
@@ -38,10 +34,6 @@ resource "aws_iam_role" "developer" {
       },
     ]
   })
-
-  tags = {
-    terraform = "true"
-  }
 }
 
 resource "aws_iam_role" "readonly" {
@@ -61,10 +53,6 @@ resource "aws_iam_role" "readonly" {
       },
     ]
   })
-
-  tags = {
-    terraform = "true"
-  }
 }
 
 resource "aws_iam_role" "monitoring" {
@@ -84,10 +72,6 @@ resource "aws_iam_role" "monitoring" {
       },
     ]
   })
-
-  tags = {
-    terraform = "true"
-  }
 }
 
 resource "aws_iam_role_policy_attachment" "administrator2fa" {

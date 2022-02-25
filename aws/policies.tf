@@ -1,7 +1,7 @@
 resource "aws_iam_policy" "admin" {
   name        = "${var.prefix}Admin"
   path        = "/"
-  description = "opsZero IAM Administrator Policy"
+  description = "${var.prefix} Administrator Policy"
 
   policy = jsonencode({
     "Version" : "2012-10-17",
@@ -18,7 +18,7 @@ resource "aws_iam_policy" "admin" {
 resource "aws_iam_policy" "developer" {
   name        = "${var.prefix}Developer"
   path        = "/"
-  description = "opsZero IAM Developer Policy"
+  description = "${var.prefix} Developer Policy"
 
   policy = jsonencode({
     "Version" : "2012-10-17",
@@ -55,7 +55,7 @@ resource "aws_iam_policy" "developer" {
 resource "aws_iam_policy" "readonly" {
   name        = "${var.prefix}ReadOnly"
   path        = "/"
-  description = "opsZero IAM Read Only Policy"
+  description = "${var.prefix} Read Only Policy"
 
   policy = jsonencode({
     "Version" : "2012-10-17",
@@ -77,7 +77,7 @@ resource "aws_iam_policy" "readonly" {
 resource "aws_iam_policy" "monitoring" {
   name        = "${var.prefix}Monitoring"
   path        = "/"
-  description = "opsZero IAM monitoring Policy"
+  description = "${var.prefix} monitoring Policy"
 
   policy = jsonencode({
     "Version" : "2012-10-17",

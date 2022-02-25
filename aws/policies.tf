@@ -94,7 +94,7 @@ resource "aws_iam_policy" "monitoring" {
   })
 }
 
-resource "aws_iam_policy" "2fa-policy" {
+resource "aws_iam_policy" "twofa" {
   name        = "${var.prefix}-2FAPolicy"
   path        = "/"
   description = "Policy ensures users are utilizing 2fa"

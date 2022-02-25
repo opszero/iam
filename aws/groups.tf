@@ -36,20 +36,20 @@ resource "aws_iam_group_policy_attachment" "monitoring" {
 
 resource "aws_iam_group_policy_attachment" "administrators2fa" {
   group      = aws_iam_group.administrators.name
-  policy_arn = aws_iam_policy.opszero-2fa-policy.arn
+  policy_arn = aws_iam_policy.twofa.arn
 }
 
 resource "aws_iam_group_policy_attachment" "developers2fa" {
   group      = aws_iam_group.developers.name
-  policy_arn = aws_iam_policy.opszero-2fa-policy.arn
+  policy_arn = aws_iam_policy.twofa.arn
 }
 
 resource "aws_iam_group_policy_attachment" "readonly2fa" {
   group      = aws_iam_group.readonly.name
-  policy_arn = aws_iam_policy.opszero-2fa-policy.arn
+  policy_arn = aws_iam_policy.twofa.arn
 }
 
 resource "aws_iam_group_policy_attachment" "monitoring2fa" {
   group      = aws_iam_group.monitoring.name
-  policy_arn = aws_iam_policy.opszero-2fa-policy.arn
+  policy_arn = aws_iam_policy.twofa.arn
 }

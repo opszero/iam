@@ -92,23 +92,23 @@ resource "aws_iam_role" "monitoring" {
 
 resource "aws_iam_role_policy_attachment" "administrator2fa" {
   role       = aws_iam_role.administrator.name
-  policy_arn = aws_iam_policy.opszero-2fa-policy.arn
+  policy_arn = aws_iam_policy.twofa.arn
 }
 
 resource "aws_iam_role_policy_attachment" "developer2fa" {
   role       = aws_iam_role.developer.name
-  policy_arn = aws_iam_policy.opszero-2fa-policy.arn
+  policy_arn = aws_iam_policy.twofa.arn
 }
 
 resource "aws_iam_role_policy_attachment" "readonly2fa" {
   role       = aws_iam_role.readonly.name
-  policy_arn = aws_iam_policy.opszero-2fa-policy.arn
+  policy_arn = aws_iam_policy.twofa.arn
 }
 
 # TODO Remove if not required for monitoring role/user
 resource "aws_iam_role_policy_attachment" "monitoring2fa" {
   role       = aws_iam_role.monitoring.name
-  policy_arn = aws_iam_policy.opszero-2fa-policy.arn
+  policy_arn = aws_iam_policy.twofa.arn
 }
 
 resource "aws_iam_role_policy_attachment" "administrator" {

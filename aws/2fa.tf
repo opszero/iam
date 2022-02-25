@@ -1,97 +1,43 @@
-resource "aws_iam_policy" "admin" {
-  name        = "${var.prefix}Admin"
-  path        = "/"
-  description = "${var.prefix} Administrator Policy"
 
-  policy = jsonencode({
-    "Version" : "2012-10-17",
-    "Statement" : [
-      {
-        "Effect" : "Allow",
-        "Action" : "*",
-        "Resource" : "*"
-      }
-    ]
-  })
+resource "aws_iam_group_policy_attachment" "administrators2fa" {
+  group      = aws_iam_group.administrators.name
+  policy_arn = aws_iam_policy.twofa.arn
 }
 
-resource "aws_iam_policy" "developer" {
-  name        = "${var.prefix}Developer"
-  path        = "/"
-  description = "${var.prefix} Developer Policy"
-
-  policy = jsonencode({
-    "Version" : "2012-10-17",
-    "Statement" : [
-      {
-        "Sid" : "PermitDeveloperAccess",
-        "Effect" : "Allow",
-        "NotAction" : [
-          "account:*",
-          "cloudtrail:*",
-          "organizations:*",
-          "sso:*",
-          "sts:*"
-        ],
-        "Resource" : "*"
-      },
-      {
-        "Sid" : "PreventOutages",
-        "Effect" : "Deny",
-        "Action" : [
-          "eks:Delete*",
-          "rds:Delete*"
-        ],
-        "Resource" : [
-          "*",
-        ]
-      }
-    ]
-  })
+resource "aws_iam_group_policy_attachment" "developers2fa" {
+  group      = aws_iam_group.developers.name
+  policy_arn = aws_iam_policy.twofa.arn
 }
 
-# TODO I need to rethink the policy because it's too long
-# LimitExceeded: Cannot exceed quota for PolicySize: 6144
-resource "aws_iam_policy" "readonly" {
-  name        = "${var.prefix}ReadOnly"
-  path        = "/"
-  description = "${var.prefix} Read Only Policy"
-
-  policy = jsonencode({
-    "Version" : "2012-10-17",
-    "Statement" : [
-      {
-        "Effect" : "Allow",
-        "Action" : [
-          "ec2:Get*",
-          "ec2:List*"
-        ],
-        "Resource" : "*"
-      }
-    ]
-  })
+resource "aws_iam_group_policy_attachment" "readonly2fa" {
+  group      = aws_iam_group.readonly.name
+  policy_arn = aws_iam_policy.twofa.arn
 }
 
-# TODO I need to rethink the policy because it's too long
-# LimitExceeded: Cannot exceed quota for PolicySize: 6144
-resource "aws_iam_policy" "monitoring" {
-  name        = "${var.prefix}Monitoring"
-  path        = "/"
-  description = "${var.prefix} monitoring Policy"
+resource "aws_iam_group_policy_attachment" "monitoring2fa" {
+  group      = aws_iam_group.monitoring.name
+  policy_arn = aws_iam_policy.twofa.arn
+}
 
-  policy = jsonencode({
-    "Version" : "2012-10-17",
-    "Statement" : [
-      {
-        "Effect" : "Allow",
-        "Action" : [
-          "ec2:Get*",
-          "ec2:List*"
-        ],
-        "Resource" : "*"
-      }
-    ]
-  })
+resource "aws_iam_role_policy_attachment" "administrator2fa" {
+  role       = aws_iam_role.administrator.name
+  policy_arn = aws_iam_policy.twofa.arn
+}
+
+resource "aws_iam_role_policy_attachment" "developer2fa" {
+  role       = aws_iam_role.developer.name
+  policy_arn = aws_iam_policy.twofa.arn
+}
+
+resource "aws_iam_role_policy_attachment" "readonly2fa" {
+  role       = aws_iam_role.readonly.name
+  policy_arn = aws_iam_policy.twofa.arn
+}
+
+# TODO Remove if not required for monitoring role/user
+resource "aws_iam_role_policy_attachment" "monitoring2fa" {
+  role       = aws_iam_role.monitoring.name
+  policy_arn = aws_iam_policy.twofa.arn
 }
 
 resource "aws_iam_policy" "twofa" {

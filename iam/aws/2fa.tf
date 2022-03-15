@@ -175,7 +175,9 @@ resource "aws_iam_policy" "twofa" {
           "iam:EnableMFADevice",
           "iam:GetAccountPasswordPolicy",
           "iam:GetUser",
-          "iam:List*"
+          "iam:List*",
+          "iam:ResyncMFADevice",
+          "sts:GetSessionToken",
         ],
         "Resource" : "*",
         "Condition" : {

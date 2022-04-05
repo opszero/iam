@@ -1,4 +1,5 @@
-resource "aws_iam_group" "administrators" {
+resource "aws_iam_group" "group" {
+  for_each = var.groups
   name = "Administrators"
 }
 
@@ -47,3 +48,9 @@ resource "aws_iam_policy" "admin" {
     ]
   })
 }
+
+# # TODO Remove if not required for monitoring role/user
+# resource "aws_iam_role_policy_attachment" "monitoring2fa" {
+#   role       = aws_iam_role.monitoring.name
+#   policy_arn = aws_iam_policy.twofa.arn
+# }

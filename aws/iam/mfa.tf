@@ -1,36 +1,5 @@
-resource "aws_iam_group_policy_attachment" "administrators2fa" {
-  group      = aws_iam_group.administrators.name
-  policy_arn = aws_iam_policy.twofa.arn
-}
-
-resource "aws_iam_group_policy_attachment" "readonly2fa" {
-  group      = aws_iam_group.readonly.name
-  policy_arn = aws_iam_policy.twofa.arn
-}
-
-resource "aws_iam_group_policy_attachment" "monitoring2fa" {
-  group      = aws_iam_group.monitoring.name
-  policy_arn = aws_iam_policy.twofa.arn
-}
-
-resource "aws_iam_role_policy_attachment" "administrator2fa" {
-  role       = aws_iam_role.administrator.name
-  policy_arn = aws_iam_policy.twofa.arn
-}
-
-resource "aws_iam_role_policy_attachment" "readonly2fa" {
-  role       = aws_iam_role.readonly.name
-  policy_arn = aws_iam_policy.twofa.arn
-}
-
-# TODO Remove if not required for monitoring role/user
-resource "aws_iam_role_policy_attachment" "monitoring2fa" {
-  role       = aws_iam_role.monitoring.name
-  policy_arn = aws_iam_policy.twofa.arn
-}
-
-resource "aws_iam_policy" "twofa" {
-  name        = "${var.prefix}2FAPolicy"
+resource "aws_iam_policy" "mfa" {
+  name        = "${var.prefix}MFA"
   path        = "/"
   description = "Policy ensures users are utilizing MFA"
 

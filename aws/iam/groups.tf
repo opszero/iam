@@ -11,7 +11,7 @@ module "iam_group_with_policies" {
     if contains(lookup(v, "groups", []), each.key)
   ]
 
-  attach_iam_self_management_policy = true
+  attach_iam_self_management_policy = false
 
   custom_group_policy_arns = concat(
     each.value.policy_arns,

@@ -5,7 +5,7 @@ locals {
 }
 
 resource "aws_iam_policy" "mfa" {
-  name        = "${var.prefix}MFA"
+  name        = "MFAPolicy"
   path        = "/"
   description = "Policy ensures users are utilizing MFA"
 

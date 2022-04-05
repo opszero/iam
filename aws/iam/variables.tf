@@ -3,6 +3,7 @@ variable "prefix" {
 }
 
 variable "groups" {
+  default = {}
   # name = {
   #   policy_arns = []
   #   enable_mfa = false

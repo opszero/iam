@@ -16,6 +16,7 @@ variable "users" {
 }
 
 variable "github" {
+  default = {}
   # "opszero/mrmgr" = {
   #   name = "mrmgr"
   #   branch = "master"
@@ -24,6 +25,7 @@ variable "github" {
 }
 
 variable "gitlab" {
+  default = {}
   # "opszero/mrmgr" = {
   #   name = "mrmgr"
   #   branch = "master"

@@ -6,15 +6,13 @@ module "iam_group_with_policies" {
 
   name = each.key
 
-  group_users = [
-    "user1",
-    "user2"
-  ]
+  group_users = [for user, v in var.users: user if contains(v.groups, each.key)]
 
   attach_iam_self_management_policy = true
 
-  custom_group_policy_arns = [
-    "arn:aws:iam::aws:policy/AdministratorAccess",
-    aws_iam_policy.twofa.arn
-  ]
+  custom_group_policy_arns = concat(
+    each.value.policy_arns,
+    lookup(each.value.enable_mfa, false) ? [
+      aws_iam_policy.mfa.arn
+    ] : [])
 }

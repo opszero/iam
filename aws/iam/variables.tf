@@ -5,7 +5,7 @@ variable "prefix" {
 variable "groups" {
   # name = {
   #   policy_arns = []
-  #   mfa = false
+  #   enable_mfa = false
   # }
 }
 

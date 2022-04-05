@@ -3,7 +3,5 @@ variable "users" {
 }
 
 variable "prefix" {
-    default = "opsZero"
+  default = "opsZero"
 }
-
-variable "aws_account_id" {}

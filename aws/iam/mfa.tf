@@ -43,7 +43,7 @@ resource "aws_iam_role_policy_attachment" "monitoring2fa" {
 resource "aws_iam_policy" "twofa" {
   name        = "${var.prefix}2FAPolicy"
   path        = "/"
-  description = "Policy ensures users are utilizing 2fa"
+  description = "Policy ensures users are utilizing MFA"
 
   policy = jsonencode({
     "Version" : "2012-10-17",
@@ -55,7 +55,7 @@ resource "aws_iam_policy" "twofa" {
           "iam:ChangePassword",
           "iam:GetLoginProfile"
         ],
-        "Resource" : "arn:aws:iam::${var.aws_account_id}:user/$${aws:username}"
+        "Resource" : "arn:aws:iam::${local.aws_account_id}:user/$${aws:username}"
       },
       {
         "Sid" : "SelfServiceMFA",
@@ -71,8 +71,8 @@ resource "aws_iam_policy" "twofa" {
           "iam:ResyncMFADevice"
         ],
         "Resource" : [
-          "arn:aws:iam::${var.aws_account_id}:mfa/$${aws:username}",
-          "arn:aws:iam::${var.aws_account_id}:user/$${aws:username}"
+          "arn:aws:iam::${local.aws_account_id}:mfa/$${aws:username}",
+          "arn:aws:iam::${local.aws_account_id}:user/$${aws:username}"
         ]
       },
       {
@@ -104,7 +104,7 @@ resource "aws_iam_policy" "twofa" {
           "iam:GetLoginProfile",
           "iam:List*"
         ],
-        "NotResource" : "arn:aws:iam::${var.aws_account_id}:user/$${aws:username}",
+        "NotResource" : "arn:aws:iam::${local.aws_account_id}:user/$${aws:username}",
         "Condition" : {
           "Null" : {
             "aws:MultiFactorAuthAge" : "true"
@@ -122,7 +122,7 @@ resource "aws_iam_policy" "twofa" {
           "iam:GetLoginProfile",
           "iam:List*"
         ],
-        "NotResource" : "arn:aws:iam::${var.aws_account_id}:user/$${aws:username}",
+        "NotResource" : "arn:aws:iam::${local.aws_account_id}:user/$${aws:username}",
         "Condition" : {
           "NumericGreaterThan" : {
             "aws:MultiFactorAuthAge" : "86400"
@@ -140,7 +140,7 @@ resource "aws_iam_policy" "twofa" {
           "iam:GetLoginProfile",
           "iam:List*"
         ],
-        "NotResource" : "arn:aws:iam::${var.aws_account_id}:user/$${aws:username}",
+        "NotResource" : "arn:aws:iam::${local.aws_account_id}:user/$${aws:username}",
         "Condition" : {
           "NumericGreaterThan" : {
             "aws:MultiFactorAuthAge" : "86400"

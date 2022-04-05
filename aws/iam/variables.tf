@@ -4,7 +4,7 @@ variable "prefix" {
 
 variable "groups" {
   # name = {
-  #   policies = []
+  #   policy_arns = []
   #   mfa = false
   # }
 }
@@ -15,3 +15,18 @@ variable "users" {
   # }
 }
 
+variable "github" {
+  # "opszero/mrmgr" = {
+  #   name = "mrmgr"
+  #   branch = "master"
+  #   path = "mrmgr"
+  # }
+}
+
+variable "gitlab" {
+  # "opszero/mrmgr" = {
+  #   name = "mrmgr"
+  #   branch = "master"
+  #   path = "mrmgr"
+  # }
+}

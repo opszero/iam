@@ -1,7 +1,3 @@
-variable "prefix" {
-  default = "MrMgr"
-}
-
 variable "groups" {
   default = {}
   # name = {

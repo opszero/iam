@@ -1,11 +1,5 @@
-
 resource "aws_iam_group_policy_attachment" "administrators2fa" {
   group      = aws_iam_group.administrators.name
-  policy_arn = aws_iam_policy.twofa.arn
-}
-
-resource "aws_iam_group_policy_attachment" "developers2fa" {
-  group      = aws_iam_group.developers.name
   policy_arn = aws_iam_policy.twofa.arn
 }
 
@@ -21,11 +15,6 @@ resource "aws_iam_group_policy_attachment" "monitoring2fa" {
 
 resource "aws_iam_role_policy_attachment" "administrator2fa" {
   role       = aws_iam_role.administrator.name
-  policy_arn = aws_iam_policy.twofa.arn
-}
-
-resource "aws_iam_role_policy_attachment" "developer2fa" {
-  role       = aws_iam_role.developer.name
   policy_arn = aws_iam_policy.twofa.arn
 }
 

@@ -1,7 +1,8 @@
+variable "prefix" {
+  default = "MrMgr"
+}
+
 variable "users" {
   # "opszero" = ["developers"]
 }
 
-variable "prefix" {
-  default = "opsZero"
-}

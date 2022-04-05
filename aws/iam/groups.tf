@@ -6,7 +6,10 @@ module "iam_group_with_policies" {
 
   name = each.key
 
-  group_users = [for user, v in var.users: user if contains(v.groups, each.key)]
+  group_users = [
+    for user, v in var.users: user
+    if contains(lookup(v.groups, []), each.key)
+  ]
 
   attach_iam_self_management_policy = true
 

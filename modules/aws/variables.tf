@@ -7,6 +7,7 @@ variable "groups" {
 }
 
 variable "users" {
+  default = {}
   # "opszero" = {
   #  groups = ["developers"]
   # }

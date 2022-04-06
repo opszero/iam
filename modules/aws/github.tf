@@ -13,5 +13,5 @@ module "oidc-github" {
   attach_read_only_policy = false
 
   iam_role_name        = "${each.key}-github"
-  iam_role_policy_arns = lookup(each.value.policy_arns, [])
+  iam_role_policy_arns = lookup(each.value, "policy_arns", [])
 }

@@ -7,7 +7,7 @@ module "iam_group_with_policies" {
   name = each.key
 
   group_users = [
-    for user, v in var.users: user
+    for user, v in var.users : user
     if contains(lookup(v, "groups", []), each.key)
   ]
 
@@ -17,5 +17,5 @@ module "iam_group_with_policies" {
     each.value.policy_arns,
     lookup(each.value, "enable_mfa", false) ? [
       aws_iam_policy.mfa.arn
-    ] : [])
+  ] : [])
 }

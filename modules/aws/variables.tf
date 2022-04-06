@@ -14,10 +14,10 @@ variable "users" {
 
 variable "github" {
   default = {}
-  # "opszero/mrmgr" = {
-  #   name = "mrmgr"
-  #   branch = "master"
-  #   path = "mrmgr"
+  # "deployer" = {
+  #   org = "opszero"
+  #   repos = ["mrmgr"]
+  #   policy_arns = []
   # }
 }
 

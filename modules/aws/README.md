@@ -86,6 +86,30 @@ module "iam" {
 ```
 
 
+kubespot
+
+```terraform
+module "opszero-eks" {
+  source = "github.com/opszero/kubespot//eks"
+
+  ...
+
+  sso_roles = {
+    admin_roles = [
+      "arn:aws:iam::1234567789101:role/github-deployer"
+    ]
+    readonly_roles = []
+    dev_roles = []
+    monitoring_roles = []
+  }
+
+  ...
+}
+
+```
+
+
+
 eksdeploy.yml
 
 ```yaml

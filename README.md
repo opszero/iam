@@ -152,8 +152,8 @@ jobs:
       - name: Release Develop
         if: ${{ github.ref == 'refs/heads/develop' }}
         env:
-          ECR_REGISTRY: 888254580762.dkr.ecr.us-east-1.amazonaws.com
-          ECR_REPOSITORY: canal
+          ECR_REGISTRY: 1234567789101.dkr.ecr.us-east-1.amazonaws.com
+          ECR_REPOSITORY: mrmgr
           IMAGE_TAG: ${{ github.sha }}
         run: |
           aws eks update-kubeconfig --name mrmgr-develop

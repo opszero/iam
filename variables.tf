@@ -28,25 +28,17 @@ variable "github" {
 variable "gitlab" {
   default = {
     "deployer" = {
-      match_field = "sub"
-      match_value = [
+      iam_role_name = "gitlab_oidc_role"
+      gitlab_url    = "https://gitlab.com"
+      audience      = "https://gitlab.com"
+      match_field   = "sub"
+      match_value   = [
         "project_path:opszero/mrmgr:ref_type:branch:ref:main"
       ]
-      policy_arns = []
+      policy_arns   = []
     }
   }
 }
 
-variable "gitlab_oidc_url" {
-  default     = "https://gitlab.com"
-  type        = string
-  description = "The GitLab ODIC Provider URL"
 
-}
-
-variable "iam_role_name" {
-  default     = "gitlab_oidc_role"
-  type        = string
-  description = "The name of IAM Role"
-}
 

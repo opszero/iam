@@ -37,3 +37,16 @@ variable "gitlab" {
   }
 }
 
+variable "gitlab_oidc_url" {
+  default     = "https://gitlab.com"
+  type        = string
+  description = "The GitLab ODIC Provider URL"
+
+}
+
+variable "iam_role_name" {
+  default     = "gitlab_oidc_role"
+  type        = string
+  description = "The name of IAM Role"
+}
+

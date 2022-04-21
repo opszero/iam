@@ -201,7 +201,7 @@ EOT
 module "iam" {
   source = "github.com/opszero/mrmgr//modules/aws"
 
-  github = {
+  gitlab = {
     "deployer" = {
       iam_role_name = "gitlab_oidc_role"
       audience      = "https://gitlab.com"

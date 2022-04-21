@@ -1,7 +1,7 @@
 variable "groups" {
   default = {
     "developers" = {
-      policy_arns = []
+      policy_arns = []    # set group policies arn from group_policies.tf here
       enable_mfa  = false
     }
   }
@@ -18,8 +18,8 @@ variable "users" {
 variable "github" {
   default = {
     "deployer" = {
-      org         = "thaunghtike-share"
-      repos       = ["mytfdemo", "terraform-aws-mrmgr"]
+      org         = "opszero"
+      repos       = ["mrmgr"]
       policy_arns = []
     }
   }
@@ -30,8 +30,7 @@ variable "gitlab" {
     "deployer" = {
       match_field = "sub"
       match_value = [
-        "project_path:thaunghtikeoo/demo:ref_type:branch:ref:main",
-        "project_path:thaunghtikeoo/oidc-demo:ref_type:branch:ref:main"
+        "project_path:opszero/mrmgr:ref_type:branch:ref:main"
       ]
       policy_arns = [
 

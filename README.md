@@ -165,3 +165,88 @@ jobs:
 ```
 
 ### Gitlab
+
+Example configuration for deploying to AWS without the need for AWS
+Access Keys. To list EKS cluster via GitLab Pipelines without using AWS credentials. You can also attach other policies to this IAM role.
+
+```bash
+resource "aws_iam_policy" "deployer" {
+  name        = "gitlab-deployer-policy"
+  description = "GitLab Deployer"
+
+  policy = <<EOT
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": [
+                "ecr:*"
+            ],
+            "Resource": "*"
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "eks:DescribeCluster",
+                "eks:ListClusters"
+            ],
+            "Resource": "*"
+        }
+    ]
+}
+EOT
+}
+
+module "aws_oidc_gitlab" {
+
+  for_each = var.gitlab
+  source   = "git::https://github.com/abhiyerra/terraform-aws-oidc-gitlab.git?ref=main"
+
+
+  attach_admin_policy  = false
+  create_oidc_provider = true
+  iam_role_name        = "gitlab_role"
+  iam_policy_arns      = [aws_iam_policy.deployer.arn]
+  gitlab_url           = "https://gitlab.com"
+  audience             = "https://gitlab.com"
+  match_field          = each.value.match_field
+  match_value          = each.value.match_value
+}
+```
+.gitlab_ci.yml
+
+```
+variables:
+  REGION: us-east-1
+  ROLE_ARN:  arn:aws:iam::${AWS_ACCOUNT_ID}:role/gitlab_role
+
+image: 
+  name: amazon/aws-cli:latest
+  entrypoint: 
+    - '/usr/bin/env'
+
+assume role:
+    script:
+        - >
+          STS=($(aws sts assume-role-with-web-identity
+          --role-arn ${ROLE_ARN}
+          --role-session-name "GitLabRunner-${CI_PROJECT_ID}-${CI_PIPELINE_ID}"
+          --web-identity-token $CI_JOB_JWT_V2
+          --duration-seconds 3600
+          --query 'Credentials.[AccessKeyId,SecretAccessKey,SessionToken]'
+          --output text))
+        - export AWS_ACCESS_KEY_ID="${STS[0]}"
+        - export AWS_SECRET_ACCESS_KEY="${STS[1]}"
+        - export AWS_SESSION_TOKEN="${STS[2]}"
+        - export AWS_REGION="$REGION"
+        - aws sts get-caller-identity
+        - aws eks list-clusters
+       
+```
+## GitLab CI Outputs
+
+![gitlabci_output](https://raw.githubusercontent.com/thaunghtike-share/mytfdemo/main/aws_console_outputs_photos/opszero.png)
+
+```
+

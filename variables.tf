@@ -32,9 +32,7 @@ variable "gitlab" {
       match_value = [
         "project_path:opszero/mrmgr:ref_type:branch:ref:main"
       ]
-      policy_arns = [
-
-      ]
+      policy_arns = []
     }
   }
 }

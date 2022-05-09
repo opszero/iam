@@ -1,4 +1,4 @@
-# opsZero MrMgr (AWS)
+# MrMgr (AWS)
 
 Configures IAM users, groups, OIDC.
 

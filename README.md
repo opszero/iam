@@ -4,6 +4,85 @@ Configures IAM users, groups, OIDC.
 
 # Usage
 
+``` yaml
+resource "aws_iam_policy" "deployer" {
+  name        = "CICD"
+  description = "Used by Github Actions to deploy to the cluster."
+
+  policy = <<EOT
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": [
+                "ecr:*"
+            ],
+            "Resource": "*"
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "eks:DescribeCluster",
+                "eks:ListClusters"
+            ],
+            "Resource": "*"
+        }
+    ]
+}
+EOT
+}
+
+module "users" {
+  source = "github.com/opszero/mrmgr//modules/aws"
+
+  github = {
+    "deployer" = {
+      org = "opszero"
+      repos = [
+        "terraform-aws-mrmgr",
+      ]
+      policy_arns = [
+        aws_iam_policy.deployer.arn
+      ]
+    }
+  }
+
+  groups = {
+    "Admin" = {
+      policy_arns = [
+        "arn:aws:iam::aws:policy/AdministratorAccess"
+      ]
+      enable_mfa = true
+    }
+    "Backend" = {
+      policy_arns = [
+        "arn:aws:iam::aws:policy/AmazonEC2FullAccess",
+      ]
+      enable_mfa = true
+    }
+  }
+
+  users = {
+    "abhi" = {
+      groups = [
+        "Admin"
+      ]
+    }
+  }
+}
+
+```
+
+## Policies
+
+Get the list of policies to add to the users.
+
+``` yaml
+aws --profile <profile> iam list-attached-group-policies --group-name BackendEngineer | jq '.AttachedPolicies[].PolicyArn'
+```
+
+
 ## Users
 
 Users will be created _without_ a login profile. This means the user will exist

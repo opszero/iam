@@ -1,7 +1,7 @@
 module "aws_oidc_gitlab" {
 
   for_each = var.gitlab
-  source   = "https://github.com/abhiyerra/terraform-aws-oidc-gitlab"
+  source   = "github.com/abhiyerra/terraform-aws-oidc-gitlab"
 
 
   attach_admin_policy  = false

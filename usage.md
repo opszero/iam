@@ -1,4 +1,3 @@
-<!-- BEGIN_TF_DOCS -->
 # AWS IAM
 
 Configures IAM users, groups, OIDC.
@@ -254,30 +253,3 @@ assume role:
 
 ```
 
-## Providers
-
-| Name | Version |
-|------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | n/a |
-## Inputs
-
-| Name | Description | Type | Default | Required |
-|------|-------------|------|---------|:--------:|
-| <a name="input_github"></a> [github](#input\_github) | n/a | `map` | `{}` | no |
-| <a name="input_gitlab"></a> [gitlab](#input\_gitlab) | n/a | `map` | `{}` | no |
-| <a name="input_groups"></a> [groups](#input\_groups) | n/a | `map` | `{}` | no |
-| <a name="input_users"></a> [users](#input\_users) | n/a | `map` | `{}` | no |
-## Resources
-
-| Name | Type |
-|------|------|
-| [aws_iam_policy.mfa](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy) | resource |
-| [aws_iam_policy.ssh](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy) | resource |
-| [aws_iam_policy_attachment.ssh](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy_attachment) | resource |
-| [aws_iam_user.user](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_user) | resource |
-| [aws_caller_identity.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/caller_identity) | data source |
-| [aws_iam_policy_document.ssh](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
-## Outputs
-
-No outputs.
-<!-- END_TF_DOCS -->

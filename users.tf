@@ -11,7 +11,7 @@ data "aws_iam_policy_document" "ssh" {
       "ec2-instance-connect:SendSSHPublicKey",
     ]
 
-    resources = each.value.ec2_instance_connect
+    resources = lookup(each.value, "ec2_instance_connect", [])
 
     condition {
       test     = "StringEquals"
@@ -28,7 +28,7 @@ data "aws_iam_policy_document" "ssh" {
       "ec2:DescribeInstances",
     ]
 
-    resources = each.value.ec2_instance_connect
+    resources = lookup(each.value, "ec2_instance_connect", [])
   }
 }
 

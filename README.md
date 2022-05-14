@@ -220,7 +220,7 @@ module "iam" {
 ```
 .gitlab_ci.yml
 
-```
+```bash
 variables:
   REGION: us-east-1
   ROLE_ARN:  arn:aws:iam::${AWS_ACCOUNT_ID}:role/gitlab_role
@@ -252,7 +252,6 @@ assume role:
 
 ![gitlabci_output](https://raw.githubusercontent.com/thaunghtike-share/mytfdemo/main/aws_console_outputs_photos/opszero.png)
 
-```
 
 ## Providers
 

@@ -90,7 +90,7 @@ kubespot
 
 ```terraform
 module "opszero-eks" {
-  source = "github.com/opszero/kubespot//eks"
+  source = "github.com/opszero/terraform-aws-kubespot"
 
   ...
 
@@ -224,9 +224,9 @@ variables:
   REGION: us-east-1
   ROLE_ARN:  arn:aws:iam::${AWS_ACCOUNT_ID}:role/gitlab_role
 
-image: 
+image:
   name: amazon/aws-cli:latest
-  entrypoint: 
+  entrypoint:
     - '/usr/bin/env'
 
 assume role:
@@ -245,11 +245,10 @@ assume role:
         - export AWS_REGION="$REGION"
         - aws sts get-caller-identity
         - aws eks list-clusters
-       
+
 ```
 ## GitLab CI Outputs
 
 ![gitlabci_output](https://raw.githubusercontent.com/thaunghtike-share/mytfdemo/main/aws_console_outputs_photos/opszero.png)
 
 ```
-

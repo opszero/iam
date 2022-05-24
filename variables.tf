@@ -1,5 +1,6 @@
 variable "groups" {
-  default = {}
+  description = "Terraform object to create AWS IAM groups with custom IAM policies"
+  default     = {}
   # name = {
   #   policy_arns = []
   #   enable_mfa = false
@@ -7,7 +8,8 @@ variable "groups" {
 }
 
 variable "users" {
-  default = {}
+  description = "Terraform object to create AWS IAM users"
+  default     = {}
   #  "opszero" = {
   #    groups = ["developers"]
   #    ec2_instance_connect =  [
@@ -26,7 +28,8 @@ variable "users" {
 }
 
 variable "github" {
-  default = {}
+  description = "Terraform object to create IAM OIDC identity provider in AWS to integrate with github actions"
+  default     = {}
   # "deployer" = {
   #   org = "opszero"
   #   repos = ["mrmgr"]
@@ -35,7 +38,8 @@ variable "github" {
 }
 
 variable "gitlab" {
-  default = {}
+  description = "Terraform object to create IAM OIDC identity provider in AWS to integrate with gitlab CI"
+  default     = {}
   #  "deployer" = {
   #    iam_role_name = "gitlab_oidc_role"
   #    gitlab_url    = "https://gitlab.com"

@@ -298,7 +298,7 @@ module "iam" {
 ```
 .gitlab_ci.yml
 
-```bash
+```
 variables:
   REGION: us-east-1
   ROLE_ARN:  arn:aws:iam::${AWS_ACCOUNT_ID}:role/gitlab_role
@@ -330,6 +330,7 @@ assume role:
 
 ![gitlabci_output](https://raw.githubusercontent.com/thaunghtike-share/mytfdemo/main/aws_console_outputs_photos/opszero.png)
 
+```
 
 ## Providers
 
@@ -340,10 +341,10 @@ assume role:
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_github"></a> [github](#input\_github) | n/a | `map` | `{}` | no |
-| <a name="input_gitlab"></a> [gitlab](#input\_gitlab) | n/a | `map` | `{}` | no |
-| <a name="input_groups"></a> [groups](#input\_groups) | n/a | `map` | `{}` | no |
-| <a name="input_users"></a> [users](#input\_users) | n/a | `map` | `{}` | no |
+| <a name="input_github"></a> [github](#input\_github) | Terraform object to create IAM OIDC identity provider in AWS to integrate with github actions | `map` | `{}` | no |
+| <a name="input_gitlab"></a> [gitlab](#input\_gitlab) | Terraform object to create IAM OIDC identity provider in AWS to integrate with gitlab CI | `map` | `{}` | no |
+| <a name="input_groups"></a> [groups](#input\_groups) | Terraform object to create AWS IAM groups with custom IAM policies | `map` | `{}` | no |
+| <a name="input_users"></a> [users](#input\_users) | Terraform object to create AWS IAM users | `map` | `{}` | no |
 ## Resources
 
 | Name | Type |

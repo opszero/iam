@@ -1,16 +1,19 @@
 locals {
-  ssh_users = [for user in var.users: user if length(lookup(user, "ec2_instance_connect", [])) > 0]
+  ssh_users = {
+    for name, user in var.users: name => user
+      if length(lookup(user, "ec2_instance_connect", [])) > 0
+    }
 }
 
 data "aws_iam_policy_document" "ssh" {
-  count = length(local.ssh_users)
+  for_each = local.ssh_users
 
   statement {
     actions = [
       "ec2-instance-connect:SendSSHPublicKey",
     ]
 
-    resources = lookup(local.ssh_users[count.index], "ec2_instance_connect", [])
+    resources = lookup(each.value, "ec2_instance_connect", [])
 
     condition {
       test     = "StringEquals"
@@ -27,7 +30,7 @@ data "aws_iam_policy_document" "ssh" {
       "ec2:DescribeInstances",
     ]
 
-    resources = lookup(local.ssh_users[count.index], "ec2_instance_connect", [])
+    resources = lookup(each.value, "ec2_instance_connect", [])
   }
 }
 

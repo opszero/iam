@@ -3,14 +3,14 @@ locals {
 }
 
 data "aws_iam_policy_document" "ssh" {
-  for_each = toset(local.ssh_users)
+  count = length(local.ssh_users)
 
   statement {
     actions = [
       "ec2-instance-connect:SendSSHPublicKey",
     ]
 
-    resources = lookup(each.value, "ec2_instance_connect", [])
+    resources = lookup(local.ssh_users[count.index], "ec2_instance_connect", [])
 
     condition {
       test     = "StringEquals"
@@ -27,7 +27,7 @@ data "aws_iam_policy_document" "ssh" {
       "ec2:DescribeInstances",
     ]
 
-    resources = lookup(each.value, "ec2_instance_connect", [])
+    resources = lookup(local.ssh_users[count.index], "ec2_instance_connect", [])
   }
 }
 

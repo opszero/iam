@@ -3,7 +3,7 @@ locals {
 }
 
 data "aws_iam_policy_document" "ssh" {
-  for_each = local.ssh_users
+  for_each = toset(local.ssh_users)
 
   statement {
     actions = [

@@ -1,8 +1,96 @@
-# AWS IAM
+# IAM (AWS)
 
-Configures IAM users, groups, OIDC.
+Configures AWS IAM users, groups, OIDC.
 
-# Usage
+## Usage
+
+Example:
+
+```
+provider "aws" {
+  profile = "canal"
+  region  = "us-east-1"
+}
+
+terraform {
+  backend "s3" {
+    bucket  = "opszero-canal-terraform-tfstate"
+    region  = "us-east-1"
+    profile = "canal"
+    encrypt = "true"
+
+    key     = "iam"
+  }
+}
+
+resource "aws_iam_policy" "deployer" {
+  name        = "github-deployer-policy"
+  description = "Github Deployer"
+
+  policy = <<EOT
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": [
+                "ecr:*"
+            ],
+            "Resource": "*"
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "eks:DescribeCluster",
+                "eks:ListClusters"
+            ],
+            "Resource": "*"
+        }
+    ]
+}
+EOT
+}
+
+
+
+module "opszero-eks" {
+  source = "github.com/opszero/terraform-aws-mrmgr"
+
+  github = {
+    "deployer" = {
+      org = "opszero"
+      repos = [
+        "terraform-aws-mrmgr"
+      ]
+      policy_arns = [
+        aws_iam_policy.deployer.arn
+      ]
+    }
+  }
+
+  groups = {
+    "Backend" = {
+      policy_arns = [
+        aws_iam_policy.deployer.arn,
+        "arn:aws:iam::aws:policy/IAMSelfManageServiceSpecificCredentials",
+        "arn:aws:iam::aws:policy/IAMUserChangePassword",
+      ]
+      enable_mfa = false
+      enable_self_management = true
+    }
+  }
+
+  users = {
+    "opszero" = {
+      "groups" = [
+        "Backend"
+      ]
+    },
+  }
+}
+
+
+```
 
 ## Users
 
@@ -11,7 +99,6 @@ but will not have a password to login with. Login profiles and credentials will
 be managed via console manually (to prevent automated disruption of everyone).
 
 When removing a user, first disable console access.
-
 
 Users without MFA will have no privilege within the system. In order to have
 access to AWS users will need to attach a MFA device to their account.
@@ -24,10 +111,9 @@ access to AWS users will need to attach a MFA device to their account.
 - Sign out
 - Sign in with MFA
 
-
 ## Groups
 
-## OIDC
+# OIDC
 
 OIDC Deployer allows us to access resources within another piece of
 infrastructure through the use of OpenID. Check below for examples oh how dto do
@@ -217,6 +303,7 @@ module "iam" {
   }
 }
 ```
+
 .gitlab_ci.yml
 
 ```

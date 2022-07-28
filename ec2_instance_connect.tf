@@ -1,8 +1,8 @@
 locals {
   ssh_users = {
-    for name, user in var.users: name => user
-      if length(lookup(user, "ec2_instance_connect", [])) > 0
-    }
+    for name, user in var.users : name => user
+    if length(lookup(user, "ec2_instance_connect", [])) > 0
+  }
 }
 
 data "aws_iam_policy_document" "ssh" {

@@ -8,15 +8,15 @@ Example:
 
 ```
 provider "aws" {
-  profile = "canal"
+  profile = "opszero"
   region  = "us-east-1"
 }
 
 terraform {
   backend "s3" {
-    bucket  = "opszero-canal-terraform-tfstate"
+    bucket  = "opszero-opszero-terraform-tfstate"
     region  = "us-east-1"
-    profile = "canal"
+    profile = "opszero"
     encrypt = "true"
 
     key     = "iam"

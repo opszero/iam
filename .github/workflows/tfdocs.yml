@@ -1,9 +1,5 @@
 name: Generate terraform docs
-
-on:
-  push:
-    branches:
-      - main
+on: [push]
 
 jobs:
   docs:
@@ -13,7 +9,7 @@ jobs:
       with:
         ref: main
 
-    - name: Render terraform docs inside the README.md 
+    - name: Render terraform docs inside the README.md and push changes back to PR branch
       uses: terraform-docs/gh-actions@v1.0.0
       with:
         working-dir: .

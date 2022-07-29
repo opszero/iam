@@ -76,7 +76,7 @@ module "opszero-eks" {
         "arn:aws:iam::aws:policy/IAMUserChangePassword",
       ]
       enable_mfa = false
-      enable_self_management = true
+      enable_self_management = true # Optional
     }
   }
 

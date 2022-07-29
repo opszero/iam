@@ -1,13 +1,31 @@
 # IAM (AWS)
 
-Configures IAM users, groups, OIDC.
+Configures AWS IAM users, groups, OIDC.
 
-# Usage
+## Usage
 
-``` yaml
+Example:
+
+```
+provider "aws" {
+  profile = "opszero"
+  region  = "us-east-1"
+}
+
+terraform {
+  backend "s3" {
+    bucket  = "opszero-opszero-terraform-tfstate"
+    region  = "us-east-1"
+    profile = "opszero"
+    encrypt = "true"
+
+    key     = "iam"
+  }
+}
+
 resource "aws_iam_policy" "deployer" {
-  name        = "CICD"
-  description = "Used by Github Actions to deploy to the cluster."
+  name        = "github-deployer-policy"
+  description = "Github Deployer"
 
   policy = <<EOT
 {
@@ -33,14 +51,16 @@ resource "aws_iam_policy" "deployer" {
 EOT
 }
 
-module "users" {
-  source = "github.com/opszero/mrmgr//modules/aws"
+
+
+module "opszero-eks" {
+  source = "github.com/opszero/terraform-aws-mrmgr"
 
   github = {
     "deployer" = {
       org = "opszero"
       repos = [
-        "terraform-aws-mrmgr",
+        "terraform-aws-mrmgr"
       ]
       policy_arns = [
         aws_iam_policy.deployer.arn
@@ -49,39 +69,28 @@ module "users" {
   }
 
   groups = {
-    "Admin" = {
-      policy_arns = [
-        "arn:aws:iam::aws:policy/AdministratorAccess"
-      ]
-      enable_mfa = true
-    }
     "Backend" = {
       policy_arns = [
-        "arn:aws:iam::aws:policy/AmazonEC2FullAccess",
+        aws_iam_policy.deployer.arn,
+        "arn:aws:iam::aws:policy/IAMSelfManageServiceSpecificCredentials",
+        "arn:aws:iam::aws:policy/IAMUserChangePassword",
       ]
-      enable_mfa = true
+      enable_mfa = false
+      enable_self_management = true
     }
   }
 
   users = {
-    "abhi" = {
-      groups = [
-        "Admin"
+    "opszero" = {
+      "groups" = [
+        "Backend"
       ]
-    }
+    },
   }
 }
 
+
 ```
-
-## Policies
-
-Get the list of policies to add to the users.
-
-``` yaml
-aws --profile <profile> iam list-attached-group-policies --group-name BackendEngineer | jq '.AttachedPolicies[].PolicyArn'
-```
-
 
 ## Users
 
@@ -90,7 +99,6 @@ but will not have a password to login with. Login profiles and credentials will
 be managed via console manually (to prevent automated disruption of everyone).
 
 When removing a user, first disable console access.
-
 
 Users without MFA will have no privilege within the system. In order to have
 access to AWS users will need to attach a MFA device to their account.
@@ -103,10 +111,9 @@ access to AWS users will need to attach a MFA device to their account.
 - Sign out
 - Sign in with MFA
 
-
 ## Groups
 
-## OIDC
+# OIDC
 
 OIDC Deployer allows us to access resources within another piece of
 infrastructure through the use of OpenID. Check below for examples oh how dto do
@@ -169,7 +176,7 @@ kubespot
 
 ```terraform
 module "opszero-eks" {
-  source = "github.com/opszero/kubespot//eks"
+  source = "github.com/opszero/terraform-aws-kubespot"
 
   ...
 
@@ -296,6 +303,7 @@ module "iam" {
   }
 }
 ```
+
 .gitlab_ci.yml
 
 ```
@@ -303,9 +311,9 @@ variables:
   REGION: us-east-1
   ROLE_ARN:  arn:aws:iam::${AWS_ACCOUNT_ID}:role/gitlab_role
 
-image: 
+image:
   name: amazon/aws-cli:latest
-  entrypoint: 
+  entrypoint:
     - '/usr/bin/env'
 
 assume role:
@@ -324,13 +332,11 @@ assume role:
         - export AWS_REGION="$REGION"
         - aws sts get-caller-identity
         - aws eks list-clusters
-       
+
 ```
 ## GitLab CI Outputs
 
 ![gitlabci_output](https://raw.githubusercontent.com/thaunghtike-share/mytfdemo/main/aws_console_outputs_photos/opszero.png)
-
-
 ## Providers
 
 | Name | Version |
@@ -357,4 +363,3 @@ assume role:
 ## Outputs
 
 No outputs.
-<!-- END_TF_DOCS -->

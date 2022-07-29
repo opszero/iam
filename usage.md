@@ -337,5 +337,3 @@ assume role:
 ## GitLab CI Outputs
 
 ![gitlabci_output](https://raw.githubusercontent.com/thaunghtike-share/mytfdemo/main/aws_console_outputs_photos/opszero.png)
-
-```

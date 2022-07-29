@@ -13,13 +13,15 @@ jobs:
       with:
         ref: main
 
-    - name: Render terraform docs inside the README.md 
-      uses: terraform-docs/gh-actions@v1.0.0
+    - name: Render terraform docs inside the README.md and push changes back to PR branch
+      uses: terraform-docs/gh-actions@main
       with:
         working-dir: .
         config-file: .terraform-docs.yml
         output-file: README.md
-        output-method: inject
+        output-method: replace
+        template: |-
+          {{ .Content }}
         indention: 3
         git-push: true
         git-commit-message: "terraform-docs: automated action"

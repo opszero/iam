@@ -1,4 +1,4 @@
-variable "users" {
+variable "user" {
   type        = string
   default     = ""
   description = "The name of IAM user"

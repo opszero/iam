@@ -4,9 +4,12 @@ Configures AWS IAM users, groups, OIDC.
 
 ## Usage
 
-Example:
+This belongs within the [infrastructure as code](https://github.com/opszero/template-infra).
+
 
 ```
+# iam/main.tf
+
 provider "aws" {
   profile = "opszero"
   region  = "us-east-1"
@@ -51,8 +54,6 @@ resource "aws_iam_policy" "deployer" {
 EOT
 }
 
-
-
 module "opszero-eks" {
   source = "github.com/opszero/terraform-aws-mrmgr"
 
@@ -87,6 +88,28 @@ module "opszero-eks" {
       ]
     },
   }
+}
+```
+
+
+```
+# environments/<nameofenv>/main.tf
+
+module "opszero-eks" {
+  source = "github.com/opszero/terraform-aws-kubespot"
+
+  ...
+
+  sso_roles = {
+    admin_roles = [
+      "arn:aws:iam::1234567789101:role/github-deployer"
+    ]
+    readonly_roles = []
+    dev_roles = []
+    monitoring_roles = []
+  }
+
+  ...
 }
 
 
@@ -194,9 +217,8 @@ module "opszero-eks" {
 
 ```
 
-
-
 eksdeploy.yml
+
 
 ```yaml
 ---
@@ -212,7 +234,7 @@ jobs:
   deploy:
     name: Deploy
     runs-on: ubuntu-latest
-    permissions:
+    permissions: # Important to add.
       contents: read
       id-token: write
     steps:
@@ -247,7 +269,6 @@ jobs:
             -f ./charts/develop.yaml \
             --set image.repository=$ECR_REGISTRY/$ECR_REPOSITORY \
             --set image.tag=$IMAGE_TAG \
-
 ```
 
 ### Gitlab
@@ -357,7 +378,6 @@ assume role:
 | [aws_iam_policy.mfa](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy) | resource |
 | [aws_iam_policy.ssh](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy) | resource |
 | [aws_iam_policy_attachment.ssh](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy_attachment) | resource |
-| [aws_iam_user.user](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_user) | resource |
 | [aws_caller_identity.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/caller_identity) | data source |
 | [aws_iam_policy_document.ssh](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
 ## Outputs

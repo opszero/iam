@@ -134,6 +134,13 @@ access to AWS users will need to attach a MFA device to their account.
 - Sign out
 - Sign in with MFA
 
+### List Existing Users
+
+``` bash
+aws --profile <profile> iam list-attached-user-policies --user-name <username>| jq '.AttachedPolicies[].PolicyArn'
+```
+
+
 ## Groups
 
 # OIDC

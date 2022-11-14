@@ -1,4 +1,4 @@
-# IAM (AWS)
+# MrMgr (AWS IAM)
 
 Configures AWS IAM users, groups, OIDC.
 

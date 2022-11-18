@@ -54,7 +54,8 @@ variable "gitlab" {
 }
 
 variable "groups_to_sync" {
-  default = {}
+  description = "Google workspace groups which you want to add to AWS Identity Store Groups"
+  default     = {}
   #  "dev@example.com" = {
   #    display_name = "Dev"
   #  },
@@ -65,7 +66,8 @@ variable "groups_to_sync" {
 }
 
 variable "permission_set_names" {
-  default = {}
+  description = " Single Sign-On (SSO) Permission Set resource with permissions"
+  default     = {}
   #  "SSOAdmins" = {
   #    permission = "arn:aws:iam::aws:policy/AdministratorAccess"
   #  },

@@ -4,7 +4,6 @@ module "oidc-github" {
   source  = "unfunco/oidc-github/aws"
   version = "1.5.0"
 
-  github_organisation = each.value.org
   github_repositories = each.value.repos
 
   create_oidc_provider = true

@@ -2,7 +2,7 @@ module "oidc-github" {
   for_each = var.github
 
   source  = "unfunco/oidc-github/aws"
-  version = "0.5.0"
+  version = "1.5.0"
 
   github_organisation = each.value.org
   github_repositories = each.value.repos

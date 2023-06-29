@@ -14,7 +14,11 @@ module "oidc-github" {
   iam_role_name        = "github-${each.key}"
   iam_role_policy_arns = lookup(each.value, "policy_arns", [])
 
-  additional_thumbprints = [data.tls_certificate.github.certificates[0].sha1_fingerprint, "6938fd4d98bab03faadb97b34396831e3780aea1", "1c58a3a8518e8759bf075b76b750d4f2df264fcd"]
+  additional_thumbprints = [
+    "6938fd4d98bab03faadb97b34396831e3780aea1",
+    "1c58a3a8518e8759bf075b76b750d4f2df264fcd",
+    data.tls_certificate.github.certificates[0].sha1_fingerprint,
+  ]
 }
 
 data "tls_certificate" "github" {

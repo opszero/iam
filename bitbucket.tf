@@ -1,6 +1,10 @@
 module "bitbucket" {
   for_each = var.bitbucket
-  source   = "helecloud/bitbucket-oidc"
+
+  module "bitbucket-oidc" {
+    source  = "helecloud/bitbucket-oidc/aws"
+    version = "0.0.1"
+  }
 
   workspace_name = each.value.workspace_name
   workspace_uuid = each.value.workspace_uuid

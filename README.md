@@ -6,7 +6,6 @@ Configures AWS IAM users, groups, OIDC.
 
 This belongs within the [infrastructure as code](https://github.com/opszero/template-infra).
 
-
 ```
 # iam/main.tf
 
@@ -91,7 +90,6 @@ module "opszero-eks" {
 }
 ```
 
-
 ```
 # environments/<nameofenv>/main.tf
 
@@ -136,10 +134,9 @@ access to AWS users will need to attach a MFA device to their account.
 
 ### List Existing Users
 
-``` bash
+```bash
 aws --profile <profile> iam list-attached-user-policies --user-name <username>| jq '.AttachedPolicies[].PolicyArn'
 ```
-
 
 ## Groups
 
@@ -201,7 +198,6 @@ module "iam" {
 
 ```
 
-
 kubespot
 
 ```terraform
@@ -225,7 +221,6 @@ module "opszero-eks" {
 ```
 
 eksdeploy.yml
-
 
 ```yaml
 ---
@@ -362,9 +357,28 @@ assume role:
         - aws eks list-clusters
 
 ```
-## GitLab CI Outputs
+
+#### GitLab CI Outputs
 
 ![gitlabci_output](https://raw.githubusercontent.com/thaunghtike-share/mytfdemo/main/aws_console_outputs_photos/opszero.png)
+
+## BitBucket
+
+```bash
+module "mrmgr" {
+  source = "github.com/opszero/terraform-aws-mrmgr"
+
+  bitbucket = {
+    "deployer" = {
+      subjects = [
+        "{REPOSITORY_UUID}[:{ENVIRONMENT_UUID}]:{STEP_UUID}"
+      ]
+      policy_json = [
+        aws_iam_policy.deployer.json
+      ]
+    }
+  }
+```
 # Pro Support
 
 <a href="https://www.opszero.com"><img src="https://assets.opszero.com/images/opszero_11_29_2016.png" width="300px"/></a>
@@ -384,6 +398,7 @@ assume role:
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
+| <a name="input_bitbucket"></a> [bitbucket](#input\_bitbucket) | Terraform object to create IAM OIDC identity provider in AWS to integrate with Bitbucket | `map` | `{}` | no |
 | <a name="input_github"></a> [github](#input\_github) | Terraform object to create IAM OIDC identity provider in AWS to integrate with github actions | `map` | `{}` | no |
 | <a name="input_gitlab"></a> [gitlab](#input\_gitlab) | Terraform object to create IAM OIDC identity provider in AWS to integrate with gitlab CI | `map` | `{}` | no |
 | <a name="input_groups"></a> [groups](#input\_groups) | Terraform object to create AWS IAM groups with custom IAM policies | `map` | `{}` | no |

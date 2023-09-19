@@ -6,7 +6,6 @@ Configures AWS IAM users, groups, OIDC.
 
 This belongs within the [infrastructure as code](https://github.com/opszero/template-infra).
 
-
 ```
 # iam/main.tf
 
@@ -91,7 +90,6 @@ module "opszero-eks" {
 }
 ```
 
-
 ```
 # environments/<nameofenv>/main.tf
 
@@ -136,10 +134,9 @@ access to AWS users will need to attach a MFA device to their account.
 
 ### List Existing Users
 
-``` bash
+```bash
 aws --profile <profile> iam list-attached-user-policies --user-name <username>| jq '.AttachedPolicies[].PolicyArn'
 ```
-
 
 ## Groups
 
@@ -201,7 +198,6 @@ module "iam" {
 
 ```
 
-
 kubespot
 
 ```terraform
@@ -225,7 +221,6 @@ module "opszero-eks" {
 ```
 
 eksdeploy.yml
-
 
 ```yaml
 ---
@@ -362,6 +357,25 @@ assume role:
         - aws eks list-clusters
 
 ```
-## GitLab CI Outputs
+
+#### GitLab CI Outputs
 
 ![gitlabci_output](https://raw.githubusercontent.com/thaunghtike-share/mytfdemo/main/aws_console_outputs_photos/opszero.png)
+
+## BitBucket
+
+```bash
+module "mrmgr" {
+  source = "github.com/opszero/terraform-aws-mrmgr"
+
+  bitbucket = {
+    "deployer" = {
+      subjects = [
+        "{REPOSITORY_UUID}[:{ENVIRONMENT_UUID}]:{STEP_UUID}"
+      ]
+      policy_json = [
+        aws_iam_policy.deployer.json
+      ]
+    }
+  }
+```

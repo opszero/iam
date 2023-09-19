@@ -15,14 +15,14 @@ variable "users" {
   #    ec2_instance_connect =  [
   #      "arn:aws:ec2:us-east-1:585584209241:instance/i-07e97d97102ddb52a",
   #      "arn:aws:ec2:us-east-1:585584209241:instance/i-0e3c1a0a62c51854a",
-  #    ]  
+  #    ]
   #  },
   #   "test" = {
   #    groups = ["developers"]
   #    ec2_instance_connect =  [
   #      "arn:aws:ec2:us-east-1:585584209241:instance/i-07e97d97102ddb52b",
   #      "arn:aws:ec2:us-east-1:585584209241:instance/i-0e3c1a0a62c51854b",
-  #    ]  
+  #    ]
   #  }
 
 }
@@ -52,3 +52,22 @@ variable "gitlab" {
   #  }
   # }
 }
+
+variable "bitbucket" {
+  description = "Terraform object to create IAM OIDC identity provider in AWS to integrate with Bitbucket"
+  default     = {}
+  #  "deployer" = {
+  #    workspace_name = "opszero"
+  #    workspace_uuid = "xxxxxxxx-xxxx-xxxx-xxxxxxxxxxxxxxxxx""
+  #
+  #    # This is matched against the sub claim, which provided in the following format:
+  #    # {REPOSITORY_UUID}[:{ENVIRONMENT_UUID}]:{STEP_UUID}
+  #    # More info here: https://support.atlassian.com/bitbucket-cloud/docs/deploy-on-aws-using-bitbucket-pipelines-openid-connect/#Using-claims-in-ID-tokens-to-limit-access-to-the-IAM-role-in-AWS
+  #    subjects = [
+  #      "{REPOSITORY_UUID}[:{ENVIRONMENT_UUID}]:{STEP_UUID}"
+  #    ]
+  #    policy_json   = []
+  #  }
+  # }
+}
+

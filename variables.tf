@@ -71,3 +71,17 @@ variable "bitbucket" {
   # }
 }
 
+variable "opszero_omyac_enabled" {
+  description = "Deploy opsZero omyac cloudformation stack"
+  default     = false
+}
+
+variable "opszero_ri_enabled" {
+  description = "Deploy opsZero ri cloudformation stack"
+  default     = false
+}
+
+variable "opszero_reseller_enabled" {
+  description = "Deploy opsZero reseller cloudformation stack"
+  default     = false
+}

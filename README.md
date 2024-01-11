@@ -402,11 +402,17 @@ module "mrmgr" {
 | <a name="input_github"></a> [github](#input\_github) | Terraform object to create IAM OIDC identity provider in AWS to integrate with github actions | `map` | `{}` | no |
 | <a name="input_gitlab"></a> [gitlab](#input\_gitlab) | Terraform object to create IAM OIDC identity provider in AWS to integrate with gitlab CI | `map` | `{}` | no |
 | <a name="input_groups"></a> [groups](#input\_groups) | Terraform object to create AWS IAM groups with custom IAM policies | `map` | `{}` | no |
+| <a name="input_opszero_omyac_enabled"></a> [opszero\_omyac\_enabled](#input\_opszero\_omyac\_enabled) | Deploy opsZero omyac cloudformation stack | `bool` | `false` | no |
+| <a name="input_opszero_reseller_enabled"></a> [opszero\_reseller\_enabled](#input\_opszero\_reseller\_enabled) | Deploy opsZero reseller cloudformation stack | `bool` | `false` | no |
+| <a name="input_opszero_ri_enabled"></a> [opszero\_ri\_enabled](#input\_opszero\_ri\_enabled) | Deploy opsZero ri cloudformation stack | `bool` | `false` | no |
 | <a name="input_users"></a> [users](#input\_users) | Terraform object to create AWS IAM users | `map` | `{}` | no |
 ## Resources
 
 | Name | Type |
 |------|------|
+| [aws_cloudformation_stack.opszero_omyac](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudformation_stack) | resource |
+| [aws_cloudformation_stack.opszero_reseller](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudformation_stack) | resource |
+| [aws_cloudformation_stack.opszero_ri](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudformation_stack) | resource |
 | [aws_iam_policy.mfa](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy) | resource |
 | [aws_iam_policy.ssh](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy) | resource |
 | [aws_iam_policy_attachment.ssh](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy_attachment) | resource |

@@ -71,17 +71,21 @@ variable "bitbucket" {
   # }
 }
 
-variable "opszero_omyac_enabled" {
+variable "opszero_enabled" {
   description = "Deploy opsZero omyac cloudformation stack"
   default     = false
 }
 
-variable "opszero_ri_enabled" {
-  description = "Deploy opsZero ri cloudformation stack"
-  default     = false
+variable "vanta_enabled" {
+  default = false
 }
 
-variable "opszero_reseller_enabled" {
-  description = "Deploy opsZero reseller cloudformation stack"
-  default     = false
+variable "vanta_account_id" {
+  description = "Vanta account id"
+  default     = ""
+}
+
+variable "vanta_external_id" {
+  description = "Vanta external id"
+  default     = ""
 }

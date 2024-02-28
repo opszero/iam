@@ -81,11 +81,13 @@ variable "vanta_enabled" {
 }
 
 variable "vanta_is_management_account" {
-  default = false
+  description = "Is this an AWS management account that has child accounts?"
+  default     = false
 }
 
 variable "vanta_is_child_account" {
-  default = false
+  description = "Is this an AWS child account?"
+  default     = false
 }
 
 variable "vanta_account_id" {

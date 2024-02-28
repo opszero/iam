@@ -39,28 +39,29 @@ resource "aws_iam_role_policy" "vanta_child" {
   EOF
 }
 
-resource "aws_iam_role_policy" "vanta_management" {
-  count = var.vanta_enabled && var.management_account ? 1 : 0
-
-  name = "VantaManagementAccountPermissions"
-  role = aws_iam_role.vanta_auditor[0].id
-
-  policy = <<EOF
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Effect": "Deny",
-      "Action": [
-        "datapipeline:EvaluateExpression",
-        "datapipeline:QueryObjects",
-        "rds:DownloadDBLogFilePortion"
-      ],
-      "Resource": "*"
-    }
-  ]
+data "aws_iam_policy_document" "vanta_management" {
+  statement {
+    actions = [
+      "datapipeline:EvaluateExpression",
+      "datapipeline:QueryObjects",
+      "rds:DownloadDBLogFilePortion"
+    ]
+    resources = ["*"]
+    effect    = "Deny"
+  }
 }
-  EOF
+
+resource "aws_iam_policy" "vanta_management" {
+  count       = var.vanta_enabled && var.management_account ? 1 : 0
+  name        = "VantaManagementAccountPermissions"
+  description = "Policy to deny specified actions in the management account"
+  policy      = data.aws_iam_policy_document.vanta_management.json
+}
+
+resource "aws_iam_role_policy_attachment" "vanta_management" {
+  count      = var.vanta_enabled && var.management_account ? 1 : 0
+  role       = aws_iam_role.vanta_auditor[0].name
+  policy_arn = aws_iam_policy.vanta_management[0].arn
 }
 
 data "aws_iam_policy" "SecurityAudit" {

@@ -2,7 +2,7 @@ resource "aws_iam_role_policy" "vanta_child" {
   count = var.vanta_enabled && var.vanta_is_child_account ? 1 : 0
 
   name = "VantaAdditionalPermissions"
-  role = aws_iam_role.vanta-auditor.id
+  role = aws_iam_role.vanta_auditor[0].id
 
   policy = <<EOF
 {
@@ -43,7 +43,7 @@ resource "aws_iam_role_policy" "vanta_management" {
   count = var.vanta_enabled && var.vanta_is_management_account ? 1 : 0
 
   name = "VantaManagementAccountPermissions"
-  role = aws_iam_role.vanta-auditor[0].id
+  role = aws_iam_role.vanta_auditor[0].id
 
   policy = <<EOF
 {
@@ -63,7 +63,7 @@ resource "aws_iam_role_policy" "vanta_management" {
   EOF
 }
 
-resource "aws_iam_role" "vanta-auditor" {
+resource "aws_iam_role" "vanta_auditor" {
   count = var.vanta_enabled ? 1 : 0
 
   name = "vanta-auditor"

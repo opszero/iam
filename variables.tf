@@ -71,17 +71,31 @@ variable "bitbucket" {
   # }
 }
 
-variable "opszero_omyac_enabled" {
+variable "opszero_enabled" {
   description = "Deploy opsZero omyac cloudformation stack"
   default     = false
 }
 
-variable "opszero_ri_enabled" {
-  description = "Deploy opsZero ri cloudformation stack"
+variable "vanta_enabled" {
+  default = false
+}
+
+variable "vanta_is_management_account" {
+  description = "Is this an AWS management account that has child accounts?"
   default     = false
 }
 
-variable "opszero_reseller_enabled" {
-  description = "Deploy opsZero reseller cloudformation stack"
+variable "vanta_is_child_account" {
+  description = "Is this an AWS child account?"
   default     = false
+}
+
+variable "vanta_account_id" {
+  description = "Vanta account id"
+  default     = ""
+}
+
+variable "vanta_external_id" {
+  description = "Vanta external id"
+  default     = ""
 }

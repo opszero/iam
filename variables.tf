@@ -1,3 +1,8 @@
+variable "management_account" {
+  description = "Is this an AWS management account that has child accounts?"
+  default     = false
+}
+
 variable "groups" {
   description = "Terraform object to create AWS IAM groups with custom IAM policies"
   default     = {}
@@ -75,6 +80,8 @@ variable "opszero_enabled" {
   description = "Deploy opsZero omyac cloudformation stack"
   default     = false
 }
+
+
 
 variable "vanta_enabled" {
   default = false

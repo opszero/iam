@@ -1,8 +1,8 @@
-resource "aws_iam_role_policy" "vanta" {
-  count = var.vanta_enabled ? 1 : 0
+resource "aws_iam_role_policy" "vanta_child" {
+  count = var.vanta_enabled && !var.management_account ? 1 : 0
 
   name = "VantaAdditionalPermissions"
-  role = aws_iam_role.test_role.id
+  role = aws_iam_role.vanta_auditor[0].id
 
   policy = <<EOF
 {
@@ -39,10 +39,38 @@ resource "aws_iam_role_policy" "vanta" {
   EOF
 }
 
-resource "aws_iam_role" "vanta-auditor" {
+resource "aws_iam_role_policy" "vanta_management" {
+  count = var.vanta_enabled && var.management_account ? 1 : 0
+
+  name = "VantaManagementAccountPermissions"
+  role = aws_iam_role.vanta_auditor[0].id
+
+  policy = <<EOF
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Deny",
+      "Action": [
+        "datapipeline:EvaluateExpression",
+        "datapipeline:QueryObjects",
+        "rds:DownloadDBLogFilePortion"
+      ],
+      "Resource": "*"
+    }
+  ]
+}
+  EOF
+}
+
+resource "aws_iam_role" "vanta_auditor" {
   count = var.vanta_enabled ? 1 : 0
 
   name = "vanta-auditor"
+
+  managed_policy_arns = [
+    "arn:aws:iam::aws:policy/SecurityAudit",
+  ]
 
   assume_role_policy = jsonencode(
     {

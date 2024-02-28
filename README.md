@@ -402,20 +402,24 @@ module "mrmgr" {
 | <a name="input_github"></a> [github](#input\_github) | Terraform object to create IAM OIDC identity provider in AWS to integrate with github actions | `map` | `{}` | no |
 | <a name="input_gitlab"></a> [gitlab](#input\_gitlab) | Terraform object to create IAM OIDC identity provider in AWS to integrate with gitlab CI | `map` | `{}` | no |
 | <a name="input_groups"></a> [groups](#input\_groups) | Terraform object to create AWS IAM groups with custom IAM policies | `map` | `{}` | no |
-| <a name="input_opszero_omyac_enabled"></a> [opszero\_omyac\_enabled](#input\_opszero\_omyac\_enabled) | Deploy opsZero omyac cloudformation stack | `bool` | `false` | no |
-| <a name="input_opszero_reseller_enabled"></a> [opszero\_reseller\_enabled](#input\_opszero\_reseller\_enabled) | Deploy opsZero reseller cloudformation stack | `bool` | `false` | no |
-| <a name="input_opszero_ri_enabled"></a> [opszero\_ri\_enabled](#input\_opszero\_ri\_enabled) | Deploy opsZero ri cloudformation stack | `bool` | `false` | no |
+| <a name="input_opszero_enabled"></a> [opszero\_enabled](#input\_opszero\_enabled) | Deploy opsZero omyac cloudformation stack | `bool` | `false` | no |
 | <a name="input_users"></a> [users](#input\_users) | Terraform object to create AWS IAM users | `map` | `{}` | no |
+| <a name="input_vanta_account_id"></a> [vanta\_account\_id](#input\_vanta\_account\_id) | Vanta account id | `string` | `""` | no |
+| <a name="input_vanta_enabled"></a> [vanta\_enabled](#input\_vanta\_enabled) | n/a | `bool` | `false` | no |
+| <a name="input_vanta_external_id"></a> [vanta\_external\_id](#input\_vanta\_external\_id) | Vanta external id | `string` | `""` | no |
+| <a name="input_vanta_is_child_account"></a> [vanta\_is\_child\_account](#input\_vanta\_is\_child\_account) | Is this an AWS child account? | `bool` | `false` | no |
+| <a name="input_vanta_is_management_account"></a> [vanta\_is\_management\_account](#input\_vanta\_is\_management\_account) | Is this an AWS management account that has child accounts? | `bool` | `false` | no |
 ## Resources
 
 | Name | Type |
 |------|------|
-| [aws_cloudformation_stack.opszero_omyac](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudformation_stack) | resource |
-| [aws_cloudformation_stack.opszero_reseller](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudformation_stack) | resource |
-| [aws_cloudformation_stack.opszero_ri](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudformation_stack) | resource |
+| [aws_cloudformation_stack.opszero](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudformation_stack) | resource |
 | [aws_iam_policy.mfa](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy) | resource |
 | [aws_iam_policy.ssh](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy) | resource |
 | [aws_iam_policy_attachment.ssh](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy_attachment) | resource |
+| [aws_iam_role.vanta_auditor](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role) | resource |
+| [aws_iam_role_policy.vanta_child](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy) | resource |
+| [aws_iam_role_policy.vanta_management](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy) | resource |
 | [aws_caller_identity.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/caller_identity) | data source |
 | [aws_iam_policy_document.ssh](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
 | [tls_certificate.github](https://registry.terraform.io/providers/hashicorp/tls/latest/docs/data-sources/certificate) | data source |

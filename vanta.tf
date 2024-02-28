@@ -43,7 +43,7 @@ resource "aws_iam_role_policy" "vanta_management" {
   count = var.vanta_enabled && var.vanta_is_management_account ? 1 : 0
 
   name = "VantaManagementAccountPermissions"
-  role = aws_iam_role.vanta-auditor.id
+  role = aws_iam_role.vanta-auditor[0].id
 
   policy = <<EOF
 {

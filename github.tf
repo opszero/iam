@@ -1,8 +1,7 @@
 module "oidc-github" {
   for_each = var.github
 
-  source  = "unfunco/oidc-github/aws"
-  version = "1.5.0"
+  source = "github.com/opszero/terraform-aws-oidc-github"
 
   github_repositories = each.value.repos
 

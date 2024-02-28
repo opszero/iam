@@ -80,6 +80,14 @@ variable "vanta_enabled" {
   default = false
 }
 
+variable "vanta_is_management_account" {
+  default = false
+}
+
+variable "vanta_is_child_account" {
+  default = false
+}
+
 variable "vanta_account_id" {
   description = "Vanta account id"
   default     = ""

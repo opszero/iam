@@ -1,5 +1,5 @@
-resource "aws_iam_role_policy" "vanta" {
-  count = var.vanta_enabled ? 1 : 0
+resource "aws_iam_role_policy" "vanta_child" {
+  count = var.vanta_enabled && var.vanta_is_child_account ? 1 : 0
 
   name = "VantaAdditionalPermissions"
   role = aws_iam_role.vanta-auditor.id
@@ -25,6 +25,30 @@ resource "aws_iam_role_policy" "vanta" {
       ],
       "Resource": "*"
     },
+    {
+      "Effect": "Deny",
+      "Action": [
+        "datapipeline:EvaluateExpression",
+        "datapipeline:QueryObjects",
+        "rds:DownloadDBLogFilePortion"
+      ],
+      "Resource": "*"
+    }
+  ]
+}
+  EOF
+}
+
+resource "aws_iam_role_policy" "vanta_management" {
+  count = var.vanta_enabled && var.vanta_is_management_account ? 1 : 0
+
+  name = "VantaManagementAccountPermissions"
+  role = aws_iam_role.vanta-auditor.id
+
+  policy = <<EOF
+{
+  "Version": "2012-10-17",
+  "Statement": [
     {
       "Effect": "Deny",
       "Action": [

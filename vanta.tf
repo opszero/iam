@@ -1,42 +1,44 @@
-resource "aws_iam_role_policy" "vanta_child" {
-  count = var.vanta_enabled && !var.management_account ? 1 : 0
+data "aws_iam_policy_document" "vanta_child" {
+  statement {
+    actions = [
+      "identitystore:DescribeGroup",
+      "identitystore:DescribeGroupMembership",
+      "identitystore:DescribeUser",
+      "identitystore:GetGroupId",
+      "identitystore:GetGroupMembershipId",
+      "identitystore:GetUserId",
+      "identitystore:IsMemberInGroups",
+      "identitystore:ListGroupMemberships",
+      "identitystore:ListGroups",
+      "identitystore:ListUsers",
+      "identitystore:ListGroupMembershipsForMember"
+    ]
+    resources = ["*"]
+    effect    = "Allow"
+  }
 
-  name = "VantaAdditionalPermissions"
-  role = aws_iam_role.vanta_auditor[0].id
-
-  policy = <<EOF
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Effect": "Allow",
-      "Action": [
-        "identitystore:DescribeGroup",
-        "identitystore:DescribeGroupMembership",
-        "identitystore:DescribeUser",
-        "identitystore:GetGroupId",
-        "identitystore:GetGroupMembershipId",
-        "identitystore:GetUserId",
-        "identitystore:IsMemberInGroups",
-        "identitystore:ListGroupMemberships",
-        "identitystore:ListGroups",
-        "identitystore:ListUsers",
-        "identitystore:ListGroupMembershipsForMember"
-      ],
-      "Resource": "*"
-    },
-    {
-      "Effect": "Deny",
-      "Action": [
-        "datapipeline:EvaluateExpression",
-        "datapipeline:QueryObjects",
-        "rds:DownloadDBLogFilePortion"
-      ],
-      "Resource": "*"
-    }
-  ]
+  statement {
+    actions = [
+      "datapipeline:EvaluateExpression",
+      "datapipeline:QueryObjects",
+      "rds:DownloadDBLogFilePortion"
+    ]
+    resources = ["*"]
+    effect    = "Deny"
+  }
 }
-  EOF
+
+resource "aws_iam_policy" "vanta_child" {
+  count       = var.vanta_enabled && !var.management_account ? 1 : 0
+  name        = "VantaAdditionalPermissions"
+  description = "Policy to allow specified actions and deny specified actions in the child account"
+  policy      = data.aws_iam_policy_document.vanta_child.json
+}
+
+resource "aws_iam_role_policy_attachment" "vanta_child" {
+  count      = var.vanta_enabled && !var.management_account ? 1 : 0
+  role       = aws_iam_role.vanta_auditor[0].name
+  policy_arn = aws_iam_policy.vanta_child.arn
 }
 
 data "aws_iam_policy_document" "vanta_management" {

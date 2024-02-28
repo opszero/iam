@@ -38,7 +38,7 @@ resource "aws_iam_policy" "vanta_child" {
 resource "aws_iam_role_policy_attachment" "vanta_child" {
   count      = var.vanta_enabled && !var.management_account ? 1 : 0
   role       = aws_iam_role.vanta_auditor[0].name
-  policy_arn = aws_iam_policy.vanta_child.arn
+  policy_arn = aws_iam_policy.vanta_child[0].arn
 }
 
 data "aws_iam_policy_document" "vanta_management" {

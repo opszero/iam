@@ -402,13 +402,12 @@ module "mrmgr" {
 | <a name="input_github"></a> [github](#input\_github) | Terraform object to create IAM OIDC identity provider in AWS to integrate with github actions | `map` | `{}` | no |
 | <a name="input_gitlab"></a> [gitlab](#input\_gitlab) | Terraform object to create IAM OIDC identity provider in AWS to integrate with gitlab CI | `map` | `{}` | no |
 | <a name="input_groups"></a> [groups](#input\_groups) | Terraform object to create AWS IAM groups with custom IAM policies | `map` | `{}` | no |
+| <a name="input_management_account"></a> [management\_account](#input\_management\_account) | Is this an AWS management account that has child accounts? | `bool` | `false` | no |
 | <a name="input_opszero_enabled"></a> [opszero\_enabled](#input\_opszero\_enabled) | Deploy opsZero omyac cloudformation stack | `bool` | `false` | no |
 | <a name="input_users"></a> [users](#input\_users) | Terraform object to create AWS IAM users | `map` | `{}` | no |
 | <a name="input_vanta_account_id"></a> [vanta\_account\_id](#input\_vanta\_account\_id) | Vanta account id | `string` | `""` | no |
 | <a name="input_vanta_enabled"></a> [vanta\_enabled](#input\_vanta\_enabled) | n/a | `bool` | `false` | no |
 | <a name="input_vanta_external_id"></a> [vanta\_external\_id](#input\_vanta\_external\_id) | Vanta external id | `string` | `""` | no |
-| <a name="input_vanta_is_child_account"></a> [vanta\_is\_child\_account](#input\_vanta\_is\_child\_account) | Is this an AWS child account? | `bool` | `false` | no |
-| <a name="input_vanta_is_management_account"></a> [vanta\_is\_management\_account](#input\_vanta\_is\_management\_account) | Is this an AWS management account that has child accounts? | `bool` | `false` | no |
 ## Resources
 
 | Name | Type |

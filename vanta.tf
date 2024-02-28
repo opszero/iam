@@ -63,14 +63,19 @@ resource "aws_iam_role_policy" "vanta_management" {
   EOF
 }
 
+data "aws_iam_policy" "SecurityAudit" {
+  arn = "arn:aws:iam::aws:policy/SecurityAudit"
+}
+
+resource "aws_iam_role_policy_attachment" "vanta_security_audit" {
+  role       = aws_iam_role.vanta_auditor[0].id
+  policy_arn = data.aws_iam_policy.SecurityAudit.arn
+}
+
 resource "aws_iam_role" "vanta_auditor" {
   count = var.vanta_enabled ? 1 : 0
 
   name = "vanta-auditor"
-
-  managed_policy_arns = [
-    "arn:aws:iam::aws:policy/SecurityAudit",
-  ]
 
   assume_role_policy = jsonencode(
     {

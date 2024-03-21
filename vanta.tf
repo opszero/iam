@@ -71,6 +71,7 @@ data "aws_iam_policy" "SecurityAudit" {
 }
 
 resource "aws_iam_role_policy_attachment" "vanta_security_audit" {
+  count = var.vanta_enabled ? 1 : 0
   role       = aws_iam_role.vanta_auditor[0].id
   policy_arn = data.aws_iam_policy.SecurityAudit.arn
 }

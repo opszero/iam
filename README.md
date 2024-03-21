@@ -53,7 +53,7 @@ resource "aws_iam_policy" "deployer" {
 EOT
 }
 
-module "opszero-eks" {
+module "opszero-iam" {
   source = "github.com/opszero/terraform-aws-mrmgr"
 
   github = {

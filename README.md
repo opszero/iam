@@ -58,8 +58,9 @@ module "opszero-eks" {
 
   github = {
     "deployer" = {
+      org = "opszero"
       repos = [
-        "opszero/terraform-aws-mrmgr"
+        "terraform-aws-mrmgr"
       ]
       policy_arns = [
         aws_iam_policy.deployer.arn

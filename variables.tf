@@ -18,15 +18,15 @@ variable "users" {
   #  "opszero" = {
   #    groups = ["developers"]
   #    ec2_instance_connect =  [
-  #      "arn:aws:ec2:us-east-1:585584209241:instance/i-07e97d97102ddb52a",
-  #      "arn:aws:ec2:us-east-1:585584209241:instance/i-0e3c1a0a62c51854a",
+  #      "arn:${local.partition}:ec2:us-east-1:585584209241:instance/i-07e97d97102ddb52a",
+  #      "arn:${local.partition}:ec2:us-east-1:585584209241:instance/i-0e3c1a0a62c51854a",
   #    ]
   #  },
   #   "test" = {
   #    groups = ["developers"]
   #    ec2_instance_connect =  [
-  #      "arn:aws:ec2:us-east-1:585584209241:instance/i-07e97d97102ddb52b",
-  #      "arn:aws:ec2:us-east-1:585584209241:instance/i-0e3c1a0a62c51854b",
+  #      "arn:${local.partition}:ec2:us-east-1:585584209241:instance/i-07e97d97102ddb52b",
+  #      "arn:${local.partition}:ec2:us-east-1:585584209241:instance/i-0e3c1a0a62c51854b",
   #    ]
   #  }
 

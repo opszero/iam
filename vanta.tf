@@ -67,7 +67,7 @@ resource "aws_iam_role_policy_attachment" "vanta_management" {
 }
 
 data "aws_iam_policy" "SecurityAudit" {
-  arn = "arn:aws:iam::aws:policy/SecurityAudit"
+  arn = "arn:${local.partition}:iam::aws:policy/SecurityAudit"
 }
 
 resource "aws_iam_role_policy_attachment" "vanta_security_audit" {

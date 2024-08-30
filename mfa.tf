@@ -19,7 +19,7 @@ resource "aws_iam_policy" "mfa" {
           "iam:ChangePassword",
           "iam:GetLoginProfile"
         ],
-        "Resource" : "arn:aws:iam::${local.aws_account_id}:user/$${aws:username}"
+        "Resource" : "arn:${local.partition}:iam::${local.aws_account_id}:user/$${aws:username}"
       },
       {
         "Sid" : "SelfServiceMFA",
@@ -35,8 +35,8 @@ resource "aws_iam_policy" "mfa" {
           "iam:ResyncMFADevice"
         ],
         "Resource" : [
-          "arn:aws:iam::${local.aws_account_id}:mfa/$${aws:username}",
-          "arn:aws:iam::${local.aws_account_id}:user/$${aws:username}"
+          "arn:${local.partition}:iam::${local.aws_account_id}:mfa/$${aws:username}",
+          "arn:${local.partition}:iam::${local.aws_account_id}:user/$${aws:username}"
         ]
       },
       {
@@ -68,7 +68,7 @@ resource "aws_iam_policy" "mfa" {
           "iam:GetLoginProfile",
           "iam:List*"
         ],
-        "NotResource" : "arn:aws:iam::${local.aws_account_id}:user/$${aws:username}",
+        "NotResource" : "arn:${local.partition}:iam::${local.aws_account_id}:user/$${aws:username}",
         "Condition" : {
           "Null" : {
             "aws:MultiFactorAuthAge" : "true"
@@ -86,7 +86,7 @@ resource "aws_iam_policy" "mfa" {
           "iam:GetLoginProfile",
           "iam:List*"
         ],
-        "NotResource" : "arn:aws:iam::${local.aws_account_id}:user/$${aws:username}",
+        "NotResource" : "arn:${local.partition}:iam::${local.aws_account_id}:user/$${aws:username}",
         "Condition" : {
           "NumericGreaterThan" : {
             "aws:MultiFactorAuthAge" : "86400"
@@ -104,7 +104,7 @@ resource "aws_iam_policy" "mfa" {
           "iam:GetLoginProfile",
           "iam:List*"
         ],
-        "NotResource" : "arn:aws:iam::${local.aws_account_id}:user/$${aws:username}",
+        "NotResource" : "arn:${local.partition}:iam::${local.aws_account_id}:user/$${aws:username}",
         "Condition" : {
           "NumericGreaterThan" : {
             "aws:MultiFactorAuthAge" : "86400"

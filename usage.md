@@ -72,8 +72,8 @@ module "opszero-eks" {
     "Backend" = {
       policy_arns = [
         aws_iam_policy.deployer.arn,
-        "arn:aws:iam::aws:policy/IAMSelfManageServiceSpecificCredentials",
-        "arn:aws:iam::aws:policy/IAMUserChangePassword",
+        "arn:${local.partition}:iam::aws:policy/IAMSelfManageServiceSpecificCredentials",
+        "arn:${local.partition}:iam::aws:policy/IAMUserChangePassword",
       ]
       enable_mfa = false
       enable_self_management = true # Optional
@@ -100,7 +100,7 @@ module "opszero-eks" {
 
   sso_roles = {
     admin_roles = [
-      "arn:aws:iam::1234567789101:role/github-deployer"
+      "arn:${local.partition}:iam::1234567789101:role/github-deployer"
     ]
     readonly_roles = []
     dev_roles = []
@@ -208,7 +208,7 @@ module "opszero-eks" {
 
   sso_roles = {
     admin_roles = [
-      "arn:aws:iam::1234567789101:role/github-deployer"
+      "arn:${local.partition}:iam::1234567789101:role/github-deployer"
     ]
     readonly_roles = []
     dev_roles = []
@@ -245,7 +245,7 @@ jobs:
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
-          role-to-assume: arn:aws:iam::1234567789101:role/github-deployer
+          role-to-assume: arn:${local.partition}:iam::1234567789101:role/github-deployer
           aws-region: us-east-1
       - name: Login to Amazon ECR
         id: login-ecr
@@ -332,7 +332,7 @@ module "iam" {
 ```
 variables:
   REGION: us-east-1
-  ROLE_ARN:  arn:aws:iam::${AWS_ACCOUNT_ID}:role/gitlab_role
+  ROLE_ARN:  arn:${local.partition}:iam::${AWS_ACCOUNT_ID}:role/gitlab_role
 
 image:
   name: amazon/aws-cli:latest

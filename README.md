@@ -379,54 +379,50 @@ module "mrmgr" {
     }
   }
 ```
-
 ## Providers
 
-| Name                                             | Version |
-| ------------------------------------------------ | ------- |
-| <a name="provider_aws"></a> [aws](#provider_aws) | n/a     |
-| <a name="provider_tls"></a> [tls](#provider_tls) | n/a     |
-
+| Name | Version |
+|------|---------|
+| <a name="provider_aws"></a> [aws](#provider\_aws) | n/a |
+| <a name="provider_tls"></a> [tls](#provider\_tls) | n/a |
 ## Inputs
 
-| Name                                                                                    | Description                                                                                   | Type     | Default | Required |
-| --------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- | -------- | ------- | :------: |
-| <a name="input_bitbucket"></a> [bitbucket](#input_bitbucket)                            | Terraform object to create IAM OIDC identity provider in AWS to integrate with Bitbucket      | `map`    | `{}`    |    no    |
-| <a name="input_github"></a> [github](#input_github)                                     | Terraform object to create IAM OIDC identity provider in AWS to integrate with github actions | `map`    | `{}`    |    no    |
-| <a name="input_gitlab"></a> [gitlab](#input_gitlab)                                     | Terraform object to create IAM OIDC identity provider in AWS to integrate with gitlab CI      | `map`    | `{}`    |    no    |
-| <a name="input_groups"></a> [groups](#input_groups)                                     | Terraform object to create AWS IAM groups with custom IAM policies                            | `map`    | `{}`    |    no    |
-| <a name="input_management_account"></a> [management_account](#input_management_account) | Is this an AWS management account that has child accounts?                                    | `bool`   | `false` |    no    |
-| <a name="input_opszero_enabled"></a> [opszero_enabled](#input_opszero_enabled)          | Deploy opsZero omyac cloudformation stack                                                     | `bool`   | `false` |    no    |
-| <a name="input_users"></a> [users](#input_users)                                        | Terraform object to create AWS IAM users                                                      | `map`    | `{}`    |    no    |
-| <a name="input_vanta_account_id"></a> [vanta_account_id](#input_vanta_account_id)       | Vanta account id                                                                              | `string` | `""`    |    no    |
-| <a name="input_vanta_enabled"></a> [vanta_enabled](#input_vanta_enabled)                | n/a                                                                                           | `bool`   | `false` |    no    |
-| <a name="input_vanta_external_id"></a> [vanta_external_id](#input_vanta_external_id)    | Vanta external id                                                                             | `string` | `""`    |    no    |
-
+| Name | Description | Type | Default | Required |
+|------|-------------|------|---------|:--------:|
+| <a name="input_bitbucket"></a> [bitbucket](#input\_bitbucket) | Terraform object to create IAM OIDC identity provider in AWS to integrate with Bitbucket | `map` | `{}` | no |
+| <a name="input_github"></a> [github](#input\_github) | Terraform object to create IAM OIDC identity provider in AWS to integrate with github actions | `map` | `{}` | no |
+| <a name="input_gitlab"></a> [gitlab](#input\_gitlab) | Terraform object to create IAM OIDC identity provider in AWS to integrate with gitlab CI | `map` | `{}` | no |
+| <a name="input_groups"></a> [groups](#input\_groups) | Terraform object to create AWS IAM groups with custom IAM policies | `map` | `{}` | no |
+| <a name="input_management_account"></a> [management\_account](#input\_management\_account) | Is this an AWS management account that has child accounts? | `bool` | `false` | no |
+| <a name="input_opszero_enabled"></a> [opszero\_enabled](#input\_opszero\_enabled) | Deploy opsZero omyac cloudformation stack | `bool` | `false` | no |
+| <a name="input_users"></a> [users](#input\_users) | Terraform object to create AWS IAM users | `map` | `{}` | no |
+| <a name="input_vanta_account_id"></a> [vanta\_account\_id](#input\_vanta\_account\_id) | Vanta account id | `string` | `""` | no |
+| <a name="input_vanta_enabled"></a> [vanta\_enabled](#input\_vanta\_enabled) | n/a | `bool` | `false` | no |
+| <a name="input_vanta_external_id"></a> [vanta\_external\_id](#input\_vanta\_external\_id) | Vanta external id | `string` | `""` | no |
 ## Resources
 
-| Name                                                                                                                                                          | Type        |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------- |
-| [aws_cloudformation_stack.opszero](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudformation_stack)                          | resource    |
-| [aws_iam_policy.mfa](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy)                                                  | resource    |
-| [aws_iam_policy.ssh](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy)                                                  | resource    |
-| [aws_iam_policy.vanta_child](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy)                                          | resource    |
-| [aws_iam_policy.vanta_management](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy)                                     | resource    |
-| [aws_iam_policy_attachment.ssh](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy_attachment)                            | resource    |
-| [aws_iam_role.vanta_auditor](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role)                                            | resource    |
-| [aws_iam_role_policy_attachment.vanta_child](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment)          | resource    |
-| [aws_iam_role_policy_attachment.vanta_management](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment)     | resource    |
-| [aws_iam_role_policy_attachment.vanta_security_audit](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment) | resource    |
-| [aws_caller_identity.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/caller_identity)                                 | data source |
-| [aws_iam_policy.SecurityAudit](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy)                                     | data source |
-| [aws_iam_policy_document.ssh](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document)                             | data source |
-| [aws_iam_policy_document.vanta_child](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document)                     | data source |
-| [aws_iam_policy_document.vanta_management](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document)                | data source |
-| [tls_certificate.github](https://registry.terraform.io/providers/hashicorp/tls/latest/docs/data-sources/certificate)                                          | data source |
-
+| Name | Type |
+|------|------|
+| [aws_cloudformation_stack.opszero](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudformation_stack) | resource |
+| [aws_iam_policy.mfa](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy) | resource |
+| [aws_iam_policy.ssh](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy) | resource |
+| [aws_iam_policy.vanta_child](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy) | resource |
+| [aws_iam_policy.vanta_management](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy) | resource |
+| [aws_iam_policy_attachment.ssh](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy_attachment) | resource |
+| [aws_iam_role.vanta_auditor](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role) | resource |
+| [aws_iam_role_policy_attachment.vanta_child](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment) | resource |
+| [aws_iam_role_policy_attachment.vanta_management](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment) | resource |
+| [aws_iam_role_policy_attachment.vanta_security_audit](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment) | resource |
+| [aws_caller_identity.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/caller_identity) | data source |
+| [aws_iam_policy.SecurityAudit](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy) | data source |
+| [aws_iam_policy_document.ssh](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
+| [aws_iam_policy_document.vanta_child](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
+| [aws_iam_policy_document.vanta_management](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
+| [aws_partition.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/partition) | data source |
+| [tls_certificate.github](https://registry.terraform.io/providers/hashicorp/tls/latest/docs/data-sources/certificate) | data source |
 ## Outputs
 
 No outputs.
-
 # 🚀 Built by opsZero!
 
 <a href="https://opszero.com"><img src="https://opszero.com/wp-content/uploads/2024/07/opsZero_logo_svg.svg" width="300px"/></a>
